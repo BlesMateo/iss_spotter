@@ -1,6 +1,7 @@
 //It will require and run our main fetch function.
 
 // index.js
+/*
 const { fetchMyIP } = require('./iss');
 
 fetchMyIP((error, ip) => {
@@ -11,3 +12,4 @@ fetchMyIP((error, ip) => {
 
   console.log('It worked! Returned IP:' , ip);
 });
+*/
