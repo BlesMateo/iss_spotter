@@ -47,6 +47,8 @@ const fetchCoordsByIP = function(ip, callback) {
     callback(null, { latitude, longitude });
     //It worked! Returned coordinates: { latitude: 49.2643, longitude: -123.0961 }
   });
+
+
 };
 
 const fetchISSFlyOverTimes = function(coords, callback) {
@@ -66,9 +68,33 @@ const fetchISSFlyOverTimes = function(coords, callback) {
     const passes = JSON.parse(body).response;
     callback(null, passes);
   });
+
 };
+const nextISSTimesForMyLocation = function(callback) {
+    fetchMyIP((error, ip) => {
+      if (error) {
+        return callback(error, null);
+      }
+
+      fetchCoordsByIP(ip, (error, loc) => {
+        if (error) {
+          return callback(error, null);
+        }
+
+        fetchISSFlyOverTimes(loc, (error, nextPasses) => {
+          if (error) {
+            return callback(error, null);
+          }
+
+          callback(null, nextPasses);
+        });
+      });
+    });
+  };
+
 
 
 //module.exports = { fetchMyIP };
 //module.exports = { fetchCoordsByIP };
-module.exports = { fetchISSFlyOverTimes };
+//module.exports = { fetchISSFlyOverTimes };
+  module.exports = { nextISSTimesForMyLocation }
